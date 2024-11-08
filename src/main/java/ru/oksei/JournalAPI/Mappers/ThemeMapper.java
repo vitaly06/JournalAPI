@@ -15,6 +15,7 @@ public class ThemeMapper implements RowMapper<Theme> {
             theme.setThemeId(resultSet.getInt("themeId"));
             theme.setThemeName(resultSet.getString("themeName"));
             theme.setSubjectId(resultSet.getInt("subjectId"));
+            theme.setTimeInterval(resultSet.getString("timeInterval"));
         }
         catch (Exception e){
             System.out.println(e.getMessage());

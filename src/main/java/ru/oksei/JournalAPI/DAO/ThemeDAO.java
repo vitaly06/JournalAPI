@@ -38,7 +38,7 @@ public class ThemeDAO {
 
     public void addTheme(Theme theme){
         assert jdbcTemplate != null;
-            jdbcTemplate.update("INSERT INTO Themes(themeName, subjectId) VALUES(?, ?) ",
-                theme.getThemeName(), theme.getSubjectId());
+            jdbcTemplate.update("INSERT INTO Themes(themeName, subjectId, timeInterval) VALUES(?, ?, ?)",
+                theme.getThemeName(), theme.getSubjectId(), theme.getTimeInterval());
     }
 }

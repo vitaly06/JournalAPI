@@ -4,6 +4,7 @@ public class Theme {
     private int themeId;
     private String themeName;
     private int subjectId;
+    private String timeInterval;
 
     public int getThemeId() {
         return themeId;
@@ -27,5 +28,13 @@ public class Theme {
 
     public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
+    }
+
+    public String getTimeInterval() {
+        return timeInterval;
+    }
+
+    public void setTimeInterval(String timeInterval) {
+        this.timeInterval = timeInterval;
     }
 }
