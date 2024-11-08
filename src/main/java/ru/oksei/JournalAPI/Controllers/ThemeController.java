@@ -19,9 +19,9 @@ public class ThemeController {
         return themeDAO.getThemeById(id);
     }
 
-    @GetMapping("/getAllThemes")
-    public List<Theme> getAllThemes() {
-        return themeDAO.getAllThemes();
+    @GetMapping("/getAllThemes/{subjectId}")
+    public List<Theme> getAllThemesBySubjectId(@PathVariable int subjectId) {
+        return themeDAO.getAllThemesBySubjectId(subjectId);
     }
 
     @PostMapping("/addTheme")

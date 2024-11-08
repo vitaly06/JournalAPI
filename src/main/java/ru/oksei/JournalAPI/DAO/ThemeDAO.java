@@ -29,10 +29,12 @@ public class ThemeDAO {
                 new ThemeMapper()).stream().findAny().orElse(null);
     }
 
-    public List<Theme> getAllThemes(){
+    public List<Theme> getAllThemesBySubjectId(int subjectId){
         assert jdbcTemplate != null;
-        return jdbcTemplate.query("SELECT * FROM Themes", new ThemeMapper());
+        return jdbcTemplate.query("SELECT * FROM Themes WHERE subjectId = ?", new Object[]{subjectId}, new ThemeMapper());
     }
+
+
 
     public void addTheme(Theme theme){
         assert jdbcTemplate != null;
