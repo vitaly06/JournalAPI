@@ -3,7 +3,7 @@ package ru.oksei.JournalAPI.Models;
 public class Student {
     private int studentId;
     private String fullName;
-    private String dateOdfBirth;
+    private String dateOfBirth;
     private int ClassId;
 
     public int getStudentId() {
@@ -22,12 +22,12 @@ public class Student {
         this.fullName = fullName;
     }
 
-    public String getDateOdfBirth() {
-        return dateOdfBirth;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDateOdfBirth(String dateOdfBirth) {
-        this.dateOdfBirth = dateOdfBirth;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getClassId() {
