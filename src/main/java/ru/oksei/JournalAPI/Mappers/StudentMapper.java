@@ -13,7 +13,7 @@ public class StudentMapper implements RowMapper<Student> {
         try{
             student.setStudentId(resultSet.getInt("studentId"));
             student.setFullName(resultSet.getString("fullName"));
-            student.setDateOfBirth(resultSet.getString("dateOdfBirth"));
+            student.setDateOfBirth(resultSet.getString("dateOfBirth"));
             student.setClassId(resultSet.getInt("classId"));
         }
         catch (Exception e){
