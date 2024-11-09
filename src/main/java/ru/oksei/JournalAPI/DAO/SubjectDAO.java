@@ -34,7 +34,7 @@ public class SubjectDAO {
 
     public void addSubject(SchoolSubject subject){
         assert jdbcTemplate != null;
-        jdbcTemplate.update("INSERT INTO SchoolSubjects(subjectName, classId) VALUES(?, ?) ",
-                subject.getSubjectName(), subject.getClassId());
+        jdbcTemplate.update("INSERT INTO SchoolSubjects(subjectName) VALUES(?) ",
+                subject.getSubjectName());
     }
 }

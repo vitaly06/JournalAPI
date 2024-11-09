@@ -13,7 +13,6 @@ public class SubjectMapper implements RowMapper<SchoolSubject> {
         try{
             subject.setSubjectId(resultSet.getInt("subjectId"));
             subject.setSubjectName(resultSet.getString("subjectName"));
-            subject.setClassId(resultSet.getInt("classId"));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
