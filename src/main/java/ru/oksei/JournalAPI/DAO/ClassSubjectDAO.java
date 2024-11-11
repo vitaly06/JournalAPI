@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.oksei.JournalAPI.Mappers.SubjectMapper;
 import ru.oksei.JournalAPI.Models.SchoolSubject;
-
 import java.util.List;
 
 @Component
