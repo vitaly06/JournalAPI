@@ -37,4 +37,10 @@ public class StudentDAO {
         jdbcTemplate.update("INSERT INTO Students(fullName, dateOfBirth, classId) VALUES(?, ?, ?)",
                 student.getFullName(), student.getDateOfBirth(), student.getClassId());
     }
+
+    public List<Student> getStudentsByClassId(int classId){
+        assert jdbcTemplate != null;
+        return jdbcTemplate.query("SELECT * FROM Students WHERE classId = ?", new Object[]{classId},
+                new StudentMapper());
+    }
 }

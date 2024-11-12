@@ -27,4 +27,9 @@ public class StudentController {
     public void addStudent(@ModelAttribute Student student) {
         studentDAO.addStudent(student);
     }
+
+    @GetMapping("/getStudentsByClassId/{id}")
+    public List<Student> getStudentsByClassId(@PathVariable("id") int classId) {
+        return studentDAO.getStudentsByClassId(classId);
+    }
 }

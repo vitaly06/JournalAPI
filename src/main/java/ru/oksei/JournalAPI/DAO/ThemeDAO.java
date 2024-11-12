@@ -3,9 +3,7 @@ package ru.oksei.JournalAPI.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.oksei.JournalAPI.Mappers.SubjectMapper;
 import ru.oksei.JournalAPI.Mappers.ThemeMapper;
-import ru.oksei.JournalAPI.Models.SchoolSubject;
 import ru.oksei.JournalAPI.Models.Theme;
 
 import java.util.List;
@@ -33,8 +31,6 @@ public class ThemeDAO {
         assert jdbcTemplate != null;
         return jdbcTemplate.query("SELECT * FROM Themes WHERE subjectId = ?", new Object[]{subjectId}, new ThemeMapper());
     }
-
-
 
     public void addTheme(Theme theme){
         assert jdbcTemplate != null;
