@@ -8,7 +8,7 @@ import ru.oksei.JournalAPI.Models.ThemeJournal;
 
 import java.util.List;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/themeJournal")
 public class ThemeJournalController {
