@@ -8,9 +8,9 @@ import ru.oksei.JournalAPI.Models.Class;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/class")
-public class ClassController {
+public class    ClassController {
     @Autowired
     ClassDAO classDAO;
 

@@ -32,8 +32,8 @@ public class ThemeJournalDAO {
     public void addRecortToJournal(List<ThemeJournal> themeJournal, int classId, int themeId) {
         jdbcTemplate.update("DELETE FROM ThemeJournal WHERE themeId = ? AND classId = ?",
                 themeId, classId);
-        jdbcTemplate.batchUpdate("INSERT INTO ThemeJournal(studentId, subjectId, themeId, classId, estimation," +
-                        "stimation1, estimation2, estimation3, estimation4, date) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        jdbcTemplate.batchUpdate("INSERT INTO ThemeJournal(studentId, subjectId, themeId, classId, estimation1," +
+                        "estimation2, estimation3, estimation4) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
 
                     @Override
@@ -46,7 +46,7 @@ public class ThemeJournalDAO {
                         ps.setInt(6, themeJournal.get(i).getEstimation2());
                         ps.setInt(7, themeJournal.get(i).getEstimation3());
                         ps.setInt(8, themeJournal.get(i).getEstimation4());
-                        ps.setString(9, themeJournal.get(i).getDate());
+                        // ps.setString(9, themeJournal.get(i).getDate());
                     }
 
                     @Override

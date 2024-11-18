@@ -21,7 +21,7 @@ public class ThemeJournalController {
     }
 
     @PostMapping("/addJournalRecord/{classId}-{themeId}")
-    public void addJournalRecord(@ModelAttribute List<ThemeJournal> themeJournal,
+    public void addJournalRecord(@RequestBody List<ThemeJournal> themeJournal,
                                  @PathVariable int classId, @PathVariable int themeId) {
         themeJournalDAO.addRecortToJournal(themeJournal, classId, themeId);
     }
