@@ -17,7 +17,7 @@ public class ThemeJournalMapper implements RowMapper<ThemeJournal> {
             themeJournal.setSubjectId(resultSet.getInt("subjectId"));
             themeJournal.setThemeId(resultSet.getInt("themeId"));
             themeJournal.setClassId(resultSet.getInt("classId"));
-            themeJournal.setEstimation(resultSet.getInt("estimation"));
+            themeJournal.setEstimation(resultSet.getInt("estimation1"));
             themeJournal.setEstimation2(resultSet.getInt("estimation2"));
             themeJournal.setEstimation3(resultSet.getInt("estimation3"));
             themeJournal.setEstimation4(resultSet.getInt("estimation4"));

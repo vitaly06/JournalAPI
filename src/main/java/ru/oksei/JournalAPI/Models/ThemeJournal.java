@@ -6,7 +6,7 @@ public class ThemeJournal {
     private int subjectId;
     private int themeId;
     private int classId;
-    private int estimation;
+    private int estimation1;
     private int estimation2;
     private int estimation3;
     private int estimation4;
@@ -53,11 +53,11 @@ public class ThemeJournal {
     }
 
     public int getEstimation() {
-        return estimation;
+        return estimation1;
     }
 
-    public void setEstimation(int estimation) {
-        this.estimation = estimation;
+    public void setEstimation(int estimation1) {
+        this.estimation1 = estimation1;
     }
 
     public int getEstimation2() {
