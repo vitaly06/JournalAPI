@@ -52,11 +52,11 @@ public class ThemeJournal {
         this.classId = classId;
     }
 
-    public int getEstimation() {
+    public int getEstimation1() {
         return estimation1;
     }
 
-    public void setEstimation(int estimation1) {
+    public void setEstimation1(int estimation1) {
         this.estimation1 = estimation1;
     }
 
