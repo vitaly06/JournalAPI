@@ -33,7 +33,8 @@ public class ThemeJournalDAO {
         jdbcTemplate.update("DELETE FROM ThemeJournal WHERE themeId = ? AND classId = ?",
                 themeId, classId);
         jdbcTemplate.batchUpdate("INSERT INTO ThemeJournal(studentId, subjectId, themeId, classId, estimation1," +
-                        "estimation2, estimation3, estimation4) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+                        "estimation2, estimation3, estimation4, coment1, coment2, coment3, coment4) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
 
                     @Override
@@ -42,10 +43,15 @@ public class ThemeJournalDAO {
                         ps.setInt(2, themeJournal.get(i).getSubjectId());
                         ps.setInt(3, themeJournal.get(i).getThemeId());
                         ps.setInt(4, themeJournal.get(i).getClassId());
-                        ps.setInt(5, themeJournal.get(i).getEstimation1());
-                        ps.setInt(6, themeJournal.get(i).getEstimation2());
-                        ps.setInt(7, themeJournal.get(i).getEstimation3());
-                        ps.setInt(8, themeJournal.get(i).getEstimation4());
+                        ps.setString(5, themeJournal.get(i).getEstimation1());
+                        ps.setString(6, themeJournal.get(i).getEstimation2());
+                        ps.setString(7, themeJournal.get(i).getEstimation3());
+                        ps.setString(8, themeJournal.get(i).getEstimation4());
+                        ps.setString(9, themeJournal.get(i).getComent1());
+                        ps.setString(10, themeJournal.get(i).getComent2());
+                        ps.setString(11, themeJournal.get(i).getComent3());
+                        ps.setString(12, themeJournal.get(i).getComent4());
+
                         // ps.setString(9, themeJournal.get(i).getDate());
                     }
 
