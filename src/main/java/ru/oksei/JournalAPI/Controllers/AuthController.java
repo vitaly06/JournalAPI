@@ -9,8 +9,8 @@ import ru.oksei.JournalAPI.Models.User;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
-
+@CrossOrigin
+public class AuthController{
     @Autowired
     private UserDAO userDAO;
 
@@ -20,6 +20,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User request) {
         User user = userDAO.getUserByLogin(request.getLogin());
+        System.out.println(user.getLogin());
+        System.out.println(user.getPassword());
         if (user != null && user.getPassword().equals(request.getPassword())) {
             String token = jwtService.generateToken(user.getLogin());
             return ResponseEntity.ok().body(token);
