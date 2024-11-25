@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/class")
-public class    ClassController {
+public class ClassController {
     @Autowired
     ClassDAO classDAO;
 

@@ -28,7 +28,7 @@ public class ActivityJournalDAO {
     }
 
     public void addRecordToActivityJournal(List<ActivityJournal> activityJournal, int classId, int themeId) {
-        jdbcTemplate.update("DELETE FROM AcitivtyJournal WHERE themeId = ? AND classId = ?",
+        jdbcTemplate.update("DELETE FROM ActivityJournal WHERE themeId = ? AND classId = ?",
                 themeId, classId);
         jdbcTemplate.batchUpdate("INSERT INTO ActivityJournal(studentId, subjectId, themeId, classId, theme1," +
                         "theme2, theme3, theme4, activity1, activity2, activity3, activity4) " +

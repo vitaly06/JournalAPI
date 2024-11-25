@@ -1,7 +1,6 @@
 package ru.oksei.JournalAPI.Mappers;
 
 import org.springframework.jdbc.core.RowMapper;
-import ru.oksei.JournalAPI.Models.SchoolSubject;
 import ru.oksei.JournalAPI.Models.ThemeJournal;
 
 import java.sql.ResultSet;
@@ -25,7 +24,7 @@ public class ThemeJournalMapper implements RowMapper<ThemeJournal> {
             themeJournal.setComent2(resultSet.getString("coment2"));
             themeJournal.setComent3(resultSet.getString("coment3"));
             themeJournal.setComent4(resultSet.getString("coment4"));
-            themeJournal.setDate(resultSet.getString("date"));
+            themeJournal.setTime(resultSet.getString("time"));
         }
         catch (Exception e){
             System.out.println(e.getMessage());

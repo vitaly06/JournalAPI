@@ -2,7 +2,6 @@ package ru.oksei.JournalAPI.Mappers;
 
 import org.springframework.jdbc.core.RowMapper;
 import ru.oksei.JournalAPI.Models.Class;
-import ru.oksei.JournalAPI.Models.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

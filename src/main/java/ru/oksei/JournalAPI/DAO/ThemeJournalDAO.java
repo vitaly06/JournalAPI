@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.oksei.JournalAPI.Mappers.ThemeJournalMapper;
+import ru.oksei.JournalAPI.Models.StudentTime;
 import ru.oksei.JournalAPI.Models.ThemeJournal;
 
 import java.sql.PreparedStatement;
@@ -29,6 +30,25 @@ public class ThemeJournalDAO {
                 new Object[]{themeId}, new ThemeJournalMapper());
     }
 
+    public void setTimeToStudents(List<StudentTime> students, int classId, int themeId){
+        jdbcTemplate.batchUpdate("UPDATE ThemeJournal SET time = ? WHERE studentId = ?, classId = ?, themeId = ?",
+                new BatchPreparedStatementSetter() {
+
+                    @Override
+                    public void setValues(PreparedStatement ps, int i) throws SQLException {
+                        ps.setString(1, students.get(i).getTime());
+                        ps.setInt(2, students.get(i).getStudentId());
+                        ps.setInt(3, classId);
+                        ps.setInt(4, themeId);
+                    }
+
+                    @Override
+                    public int getBatchSize() {
+                        return students.size();
+                    }
+                });
+    }
+
     public void addRecortToJournal(List<ThemeJournal> themeJournal, int classId, int themeId) {
         jdbcTemplate.update("DELETE FROM ThemeJournal WHERE themeId = ? AND classId = ?",
                 themeId, classId);
@@ -51,8 +71,6 @@ public class ThemeJournalDAO {
                         ps.setString(10, themeJournal.get(i).getComent2());
                         ps.setString(11, themeJournal.get(i).getComent3());
                         ps.setString(12, themeJournal.get(i).getComent4());
-
-                        // ps.setString(9, themeJournal.get(i).getDate());
                     }
 
                     @Override

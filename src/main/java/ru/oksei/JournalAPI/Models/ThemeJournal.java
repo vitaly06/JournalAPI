@@ -14,7 +14,7 @@ public class ThemeJournal {
     private String coment2;
     private String coment3;
     private String coment4;
-    private String date;
+    private String time;
 
     public int getRecordId() {
         return recordId;
@@ -88,12 +88,12 @@ public class ThemeJournal {
         this.estimation4 = estimation4;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getComent1() {

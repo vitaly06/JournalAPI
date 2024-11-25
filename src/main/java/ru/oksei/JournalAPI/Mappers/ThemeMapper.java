@@ -1,7 +1,6 @@
 package ru.oksei.JournalAPI.Mappers;
 
 import org.springframework.jdbc.core.RowMapper;
-import ru.oksei.JournalAPI.Models.SchoolSubject;
 import ru.oksei.JournalAPI.Models.Theme;
 
 import java.sql.ResultSet;
