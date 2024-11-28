@@ -31,7 +31,7 @@ public class ThemeJournalDAO {
     }
 
     public void setTimeToStudents(List<StudentTime> students, int classId, int themeId){
-        jdbcTemplate.batchUpdate("UPDATE ThemeJournal SET time = ? WHERE studentId = ?, classId = ?, themeId = ?",
+        jdbcTemplate.batchUpdate("UPDATE ThemeJournal SET time = ? WHERE studentId = ? AND classId = ? AND themeId = ?",
                 new BatchPreparedStatementSetter() {
 
                     @Override

@@ -33,3 +33,4 @@ public class ThemeJournalController {
         themeJournalDAO.setTimeToStudents(students, classId, themeId);
     }
 }
+
