@@ -53,8 +53,8 @@ public class ThemeJournalDAO {
         jdbcTemplate.update("DELETE FROM ThemeJournal WHERE themeId = ? AND classId = ?",
                 themeId, classId);
         jdbcTemplate.batchUpdate("INSERT INTO ThemeJournal(studentId, subjectId, themeId, classId, estimation1," +
-                        "estimation2, estimation3, estimation4, coment1, coment2, coment3, coment4) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "estimation2, estimation3, estimation4, coment1, coment2, coment3, coment4, time) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 new BatchPreparedStatementSetter() {
 
                     @Override
@@ -71,6 +71,8 @@ public class ThemeJournalDAO {
                         ps.setString(10, themeJournal.get(i).getComent2());
                         ps.setString(11, themeJournal.get(i).getComent3());
                         ps.setString(12, themeJournal.get(i).getComent4());
+                        ps.setString(13, themeJournal.get(i).getTime());
+
                     }
 
                     @Override

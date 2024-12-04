@@ -3,10 +3,10 @@ package ru.oksei.JournalAPI.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.oksei.JournalAPI.DAO.ThemeJournalDAO;
-import ru.oksei.JournalAPI.Models.Student;
 import ru.oksei.JournalAPI.Models.StudentTime;
 import ru.oksei.JournalAPI.Models.ThemeJournal;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -18,7 +18,28 @@ public class ThemeJournalController {
 
     @GetMapping("/{themeId}")
     public List<ThemeJournal> getJournalByThemeId(@PathVariable int themeId) {
-        return themeJournalDAO.getThemeJournalByThemeId(themeId);
+        long milliseconds;
+        List<ThemeJournal> themeJournals = themeJournalDAO.getThemeJournalByThemeId(themeId);
+        for (ThemeJournal themeJournal : themeJournals) {
+            if (themeJournal.getTime() != null) {
+                try {
+                    milliseconds = Long.parseLong(themeJournal.getTime());
+                    // Преобразуем миллисекунды в Duration
+                    Duration duration = Duration.ofMillis(milliseconds);
+                    // Получаем часы, минуты и секунды
+                    long hours = duration.toHours();
+                    long minutes = duration.toMinutes() % 60; // Остаток минут
+                    long seconds = duration.getSeconds() % 60; // Остаток секунд
+
+                    // Форматируем строку
+                    String timeFormatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                    themeJournal.setTime(timeFormatted);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        return themeJournals;
     }
 
     @PostMapping("/addJournalRecord/{classId}-{themeId}")
