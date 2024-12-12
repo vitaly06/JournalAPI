@@ -2,30 +2,39 @@ package ru.oksei.JournalAPI.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.oksei.JournalAPI.DAO.SubjectDAO;
 import ru.oksei.JournalAPI.Models.SchoolSubject;
+import ru.oksei.JournalAPI.Services.SchoolSubjectService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/subject")
 public class SubjectController {
+    SchoolSubjectService subjectService;
     @Autowired
-    SubjectDAO subjectDAO;
+    public SubjectController(SchoolSubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     @GetMapping("/{id}")
-    public SchoolSubject getSubjectById(@PathVariable int id) {
-        return subjectDAO.getSubjectById(id);
+    public Optional<SchoolSubject> getSubjectById(@PathVariable int id) {
+        return subjectService.getSubjectById(id);
     }
 
     @GetMapping("/getAllSubjects")
     public List<SchoolSubject> getAllSubjects() {
-        return subjectDAO.getAllSubjects();
+        return subjectService.getAllSubjects();
     }
 
-    @PostMapping("/addSubject")
-    public void addSubject(@ModelAttribute SchoolSubject subject) {
-        subjectDAO.addSubject(subject);
+    @PostMapping("/addSubject/{classId}")
+    public void addSubject(@ModelAttribute SchoolSubject subject, @PathVariable("classId") int classId) {
+        subjectService.addSubject(subject, classId);
+    }
+
+    @GetMapping("/getSubjects/{id}")
+    public List<SchoolSubject> getSubjectsByClassId(@PathVariable int id) {
+        return subjectService.getSubjectsByClassId(id);
     }
 }

@@ -1,10 +1,33 @@
 package ru.oksei.JournalAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import javax.security.auth.Subject;
+import java.util.List;
+
+@Entity
+@Table(name = "theme")
 public class Theme {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "themeid")
     private int themeId;
+    @Column(name = "themename")
     private String themeName;
-    private int subjectId;
-    private String timeInterval;
+    @ManyToOne
+    @JoinColumn(name = "subjectid")
+    @JsonIgnore
+    private SchoolSubject subject;
+    @OneToMany(mappedBy = "theme")
+    @JsonIgnore
+    private List<ActivityJournal> activityJournals;
+
+    public Theme() {}
+
+    public Theme(String themeName) {
+        this.themeName = themeName;
+    }
 
     public int getThemeId() {
         return themeId;
@@ -22,19 +45,19 @@ public class Theme {
         this.themeName = themeName;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public SchoolSubject getSubject() {
+        return subject;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(SchoolSubject subject) {
+        this.subject = subject;
     }
 
-    public String getTimeInterval() {
-        return timeInterval;
+    public List<ActivityJournal> getActivityJournals() {
+        return activityJournals;
     }
 
-    public void setTimeInterval(String timeInterval) {
-        this.timeInterval = timeInterval;
+    public void setActivityJournals(List<ActivityJournal> activityJournals) {
+        this.activityJournals = activityJournals;
     }
 }

@@ -1,20 +1,30 @@
 package ru.oksei.JournalAPI.Models;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "runjournal")
 public class RunJournal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "recordid")
     private int recordId;
-    private int studentId;
-    private int subjectId;
-    private int offsetId;
+    @Column(name = "estimation")
     private String estimation;
-    private int classId;
+    @ManyToOne
+    @JoinColumn(name = "studentid")
+    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "subjectid")
+    private SchoolSubject subject;
+    @ManyToOne
+    @JoinColumn(name = "offsetid")
+    private Offset offset;
+    @ManyToOne
+    @JoinColumn(name = "classid")
+    private Class schoolClass;
 
-    public RunJournal(int recordId, int studentId, int subjectId, int offsetId, int classId, String estimation) {
-        this.recordId = recordId;
-        this.studentId = studentId;
-        this.subjectId = subjectId;
-        this.offsetId = offsetId;
-        this.classId = classId;
+    public RunJournal(String estimation) {
         this.estimation = estimation;
     }
 
@@ -28,30 +38,6 @@ public class RunJournal {
         this.recordId = recordId;
     }
 
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public int getOffsetId() {
-        return offsetId;
-    }
-
-    public void setOffsetId(int offsetId) {
-        this.offsetId = offsetId;
-    }
-
     public String getEstimation() {
         return estimation;
     }
@@ -60,11 +46,35 @@ public class RunJournal {
         this.estimation = estimation;
     }
 
-    public int getClassId() {
-        return classId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public SchoolSubject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(SchoolSubject subject) {
+        this.subject = subject;
+    }
+
+    public Offset getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Offset offset) {
+        this.offset = offset;
+    }
+
+    public Class getSchoolClass() {
+        return schoolClass;
+    }
+
+    public void setSchoolClass(Class schoolClass) {
+        this.schoolClass = schoolClass;
     }
 }

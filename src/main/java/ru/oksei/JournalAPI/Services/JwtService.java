@@ -1,4 +1,4 @@
-package ru.oksei.JournalAPI;
+package ru.oksei.JournalAPI.Services;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,17 +1,35 @@
 package ru.oksei.JournalAPI.Models;
 
-public class Offset {
-    private int offsetId;
-    private String offsetName;
-    private int subjectId;
-    private String distance;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-    public Offset(int offsetId, String offsetName, int subjectId, String distance) {
+import java.util.List;
+
+@Entity
+@Table(name = "offset", schema = "public")
+public class Offset {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "offsetid")
+    private int offsetId;
+    @Column(name = "offsetname")
+    private String offsetName;
+
+    @Column(name = "distance")
+    private String distance;
+    @ManyToOne
+    @JoinColumn(name = "subjectid")
+    @JsonIgnore
+    SchoolSubject subject;
+    @OneToMany(mappedBy = "offset")
+    @JsonIgnore
+    private List<RunJournal> runJournals;
+    public Offset(int offsetId, String offsetName, String distance) {
         this.offsetId = offsetId;
         this.offsetName = offsetName;
-        this.subjectId = subjectId;
         this.distance = distance;
     }
+
 
     public Offset() {}
 
@@ -31,19 +49,27 @@ public class Offset {
         this.offsetName = offsetName;
     }
 
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
-    }
-
     public String getDistance() {
         return distance;
     }
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public SchoolSubject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(SchoolSubject subject) {
+        this.subject = subject;
+    }
+
+    public List<RunJournal> getRunJournals() {
+        return runJournals;
+    }
+
+    public void setRunJournals(List<RunJournal> runJournals) {
+        this.runJournals = runJournals;
     }
 }

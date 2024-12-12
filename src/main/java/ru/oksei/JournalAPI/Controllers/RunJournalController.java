@@ -2,9 +2,10 @@ package ru.oksei.JournalAPI.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.oksei.JournalAPI.DAO.RunJournalDAO;
 import ru.oksei.JournalAPI.Models.RunJournal;
 import ru.oksei.JournalAPI.Models.StudentTime;
+import ru.oksei.JournalAPI.Requests.RunJournalRequest;
+import ru.oksei.JournalAPI.Services.RunJournalService;
 
 import java.util.List;
 
@@ -12,24 +13,27 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/runJournal")
 public class RunJournalController {
+    private final RunJournalService runJournalService;
     @Autowired
-    private RunJournalDAO runJournalDAO;
+    public RunJournalController(RunJournalService runJournalService) {
+        this.runJournalService = runJournalService;
+    }
 
     @GetMapping("/{offsetId}")
     public List<RunJournal> getRunJournalByOffsetId(@PathVariable("offsetId") int offsetId) {
-        List<RunJournal> runJournals = runJournalDAO.getRunJournalByOffsetId(offsetId);
+        List<RunJournal> runJournals = runJournalService.getRunJournalByOffsetId(offsetId);
         return runJournals;
     }
 
     @PostMapping("/addRunJournalRecord/{classId}-{offsetId}")
-    public void addRunJournalRecord(@RequestBody List<RunJournal> runJournal,
+    public void addRunJournalRecord(@RequestBody List<RunJournalRequest> runJournal,
                                  @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId) {
-        runJournalDAO.addRecordToRunJournal(runJournal, classId, offsetId);
+        runJournalService.addRecordToRunJournal(runJournal, classId, offsetId);
     }
 
     @PostMapping("/addTimeToStudents/{classId}-{offsetId}")
     public void addTimeToStudents(@RequestBody List<StudentTime> students,
                                   @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId) {
-        runJournalDAO.setEstimationToStudents(students, classId, offsetId);
+        runJournalService.setEstimationToStudents(students, classId, offsetId);
     }
 }
