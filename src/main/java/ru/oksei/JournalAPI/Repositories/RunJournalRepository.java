@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.oksei.JournalAPI.Models.RunJournal;
-import ru.oksei.JournalAPI.Models.ThemeJournal;
 
 import java.util.List;
 

@@ -25,8 +25,8 @@ public class ThemeJournalController {
 
     @PostMapping("/addJournalRecord/{classId}-{themeId}")
     public void addJournalRecord(@RequestBody List<ThemeJournalRequest> themeJournal,
-                                 @PathVariable int classId, @PathVariable int themeId) {
-        themeJournalService.addThemeJournal(themeJournal, classId, themeId);
+                                 @PathVariable("classId") int classId, @PathVariable("themeId") int themeId) {
+        themeJournalService.addThemeJournal(themeJournal, themeId, classId);
     }
 
 }

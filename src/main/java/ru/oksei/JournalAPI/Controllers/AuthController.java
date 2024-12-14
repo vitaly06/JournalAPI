@@ -23,6 +23,7 @@ public class AuthController{
     public ResponseEntity<?> login(@RequestBody User request) {
         User user = userService.getUserByLoginAndPassword(request.getLogin(), request.getPassword());
         if (user != null && user.getPassword().equals(request.getPassword())) {
+            System.out.println(1);
             String token = jwtService.generateToken(user.getLogin());
             return ResponseEntity.ok().body(token);
         }

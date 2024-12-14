@@ -28,7 +28,6 @@ public class ActivityJournal {
     private String activity4;
     @ManyToOne
     @JoinColumn(name = "studentid")
-    @JsonIgnore
     private Student student;
     @ManyToOne
     @JoinColumn(name = "subjectid")

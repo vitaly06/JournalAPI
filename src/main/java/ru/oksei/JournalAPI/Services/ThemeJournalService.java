@@ -9,6 +9,7 @@ import ru.oksei.JournalAPI.Repositories.*;
 import ru.oksei.JournalAPI.Requests.ThemeJournalRequest;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -40,12 +41,15 @@ public class ThemeJournalService {
 
         // Сохраняем новые записи
         for (ThemeJournalRequest journal : themeJournal) {
-            Class schoolClass = classRepository.findById(classId).get();
-            Theme theme = themeRepository.findById(themeId).get();
-            Student student = studentRepository.findById(journal.getStudentId()).get();
-            SchoolSubject subject = schoolSubjectRepository.findById(journal.getSubjectId()).get();
+            Optional<Class> schoolClass = classRepository.findById(classId);
+            Optional<Theme> theme = themeRepository.findById(themeId);
+            Optional<Student> student = studentRepository.findById(journal.getStudentId());
+            Optional<SchoolSubject> subject = schoolSubjectRepository.findById(journal.getSubjectId());
+
+            // Создаем новый объект ThemeJournal
             ThemeJournal tj = new ThemeJournal();
-            themeJournalRepository.save(tj);
+
+            // Устанавливаем оценки и комментарии
             tj.setEstimation1(journal.getEstimation1());
             tj.setEstimation2(journal.getEstimation2());
             tj.setEstimation3(journal.getEstimation3());
@@ -54,11 +58,46 @@ public class ThemeJournalService {
             tj.setComent2(journal.getComent2());
             tj.setComent3(journal.getComent3());
             tj.setComent4(journal.getComent4());
-            tj.setTheme(theme);
-            tj.setStudent(student);
-            tj.setSubject(subject);
-            tj.setClazz(schoolClass);
-            themeJournalRepository.save(tj);
+
+            // Проверяем наличие классов, тем, студентов и предметов
+            schoolClass.ifPresentOrElse(
+                    clazz -> {
+                        tj.setClazz(clazz);
+                        System.out.println(clazz.getClassName());
+                    },
+                    () -> System.out.println("Class not found with id: " + classId)
+            );
+
+            theme.ifPresentOrElse(
+                    t -> {
+                        tj.setTheme(t);
+                        System.out.println(t.getThemeName());
+                    },
+                    () -> System.out.println("Theme not found with id: " + themeId)
+            );
+
+            student.ifPresentOrElse(
+                    s -> {
+                        tj.setStudent(s);
+                        System.out.println(s.getFullName());
+                    },
+                    () -> System.out.println("Student not found with id: " + journal.getStudentId())
+            );
+
+            subject.ifPresentOrElse(
+                    sub -> {
+                        tj.setSubject(sub);
+                        System.out.println(sub.getSubjectName());
+                    },
+                    () -> System.out.println("Subject not found with id: " + journal.getSubjectId())
+            );
+
+            // Сохраняем ThemeJournal только если все необходимые данные присутствуют
+            if (schoolClass.isPresent() && theme.isPresent() && student.isPresent() && subject.isPresent()) {
+                themeJournalRepository.save(tj);
+            } else {
+                System.out.println("ThemeJournal not saved due to missing data.");
+            }
         }
     }
 }

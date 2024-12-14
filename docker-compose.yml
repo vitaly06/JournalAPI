@@ -21,5 +21,7 @@ services:
       POSTGRES_DB: Journal
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
     ports:
       - "5436:5432"

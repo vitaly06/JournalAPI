@@ -28,7 +28,6 @@ public class ThemeJournal {
     private String coment4;
     @ManyToOne
     @JoinColumn(name = "studentid")
-    @JsonIgnore
     private Student student;
     @ManyToOne
     @JoinColumn(name = "subjectid")

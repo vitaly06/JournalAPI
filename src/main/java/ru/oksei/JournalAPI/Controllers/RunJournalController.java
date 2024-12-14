@@ -25,15 +25,17 @@ public class RunJournalController {
         return runJournals;
     }
 
-    @PostMapping("/addRunJournalRecord/{classId}-{offsetId}")
+    /*@PostMapping("/addRunJournalRecord/{classId}-{offsetId}-{subjectId}")
     public void addRunJournalRecord(@RequestBody List<RunJournalRequest> runJournal,
-                                 @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId) {
-        runJournalService.addRecordToRunJournal(runJournal, classId, offsetId);
-    }
+                                 @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId,
+                                    @PathVariable("subjectId") int subjectId) {
+        runJournalService.addRecordToRunJournal(runJournal, classId, offsetId, subjectId);
+    }*/
 
-    @PostMapping("/addTimeToStudents/{classId}-{offsetId}")
+    @PostMapping("/addTimeToStudents/{classId}-{offsetId}-{subjectId}")
     public void addTimeToStudents(@RequestBody List<StudentTime> students,
-                                  @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId) {
-        runJournalService.setEstimationToStudents(students, classId, offsetId);
+                                  @PathVariable("classId") int classId, @PathVariable("offsetId") int offsetId,
+                                  @PathVariable("subjectId") int subjectId) {
+        runJournalService.setEstimationToStudents(students, classId, offsetId, subjectId);
     }
 }

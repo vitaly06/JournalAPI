@@ -12,6 +12,7 @@ import ru.oksei.JournalAPI.Requests.RunJournalRequest;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,31 +37,72 @@ public class RunJournalService {
     }
 
     // добавление записи в журнал
+//    @Transactional
+//    public void addRecordToRunJournal(List<RunJournalRequest> runJournals, int offsetId, int classId){
+//        // Удаляем старые записи
+//
+//
+//        // Сохраняем новые записи
+//        for (RunJournalRequest journal : runJournals) {
+//            Optional<Class> class1 = classRepository.findById(classId);
+//            Optional<Offset> offset = offsetRepository.findById(offsetId);
+//            Optional<Student> student = studentRepository.findById(journal.getStudentId());
+//            Optional<SchoolSubject> subject = schoolSubjectRepository.findById(journal.getSubjectId());
+//
+//            // создаём объект и заполняем
+//            RunJournal runJournal = new RunJournal();
+//            runJournal.setEstimation(journal.getEstimation());
+//
+//            // Проверяем наличие классов, смещений, студентов и предметов
+//            class1.ifPresentOrElse(
+//                    clazz -> {
+//                        runJournal.setSchoolClass(clazz);
+//                        System.out.println("Class set: " + clazz.getClassName());
+//                    },
+//                    () -> System.out.println("Class not found with id: " + classId)
+//            );
+//
+//            offset.ifPresentOrElse(
+//                    off -> {
+//                        runJournal.setOffset(off);
+//                        System.out.println("Offset set: " + off.getOffsetName());
+//                    },
+//                    () -> System.out.println("Offset not found with id: " + offsetId)
+//            );
+//
+//            student.ifPresentOrElse(
+//                    stud -> {
+//                        runJournal.setStudent(stud);
+//                        System.out.println("Student set: " + stud.getFullName());
+//                    },
+//                    () -> System.out.println("Student not found with id: " + journal.getStudentId())
+//            );
+//
+//            subject.ifPresentOrElse(
+//                    sub -> {
+//                        runJournal.setSubject(sub);
+//                        System.out.println("Subject set: " + sub.getSubjectName());
+//                    },
+//                    () -> System.out.println("Subject not found with id: " + journal.getSubjectId())
+//            );
+//
+//            // Сохраняем RunJournal только если все необходимые данные присутствуют
+//            if (class1.isPresent() && offset.isPresent() && student.isPresent() && subject.isPresent()) {
+//                runJournalRepository.save(runJournal);
+//                System.out.println("RunJournal saved successfully.");
+//            } else {
+//                System.out.println("RunJournal not saved due to missing data.");
+//            }
+//        }
+//    }
+
     @Transactional
-    public void addRecordToRunJournal(List<RunJournalRequest> runJournals, int offsetId, int classId){
-        // Удаляем старые записи
+    public void setEstimationToStudents(List<StudentTime> students, int classId, int offsetId, int subjectId){
         runJournalRepository.deleteByOffsetIdAndClassId(offsetId, classId);
+        Optional<Class> class1 = classRepository.findById(classId);
+        Optional<Offset> offset = offsetRepository.findById(offsetId);
+        Optional<SchoolSubject> subject = schoolSubjectRepository.findById(subjectId);
 
-        // Сохраняем новые записи
-        for (RunJournalRequest journal : runJournals) {
-            Class class1 = classRepository.findById(classId).get();
-            Offset offset = offsetRepository.findById(offsetId).get();
-            Student student = studentRepository.findById(journal.getStudentId()).get();
-            SchoolSubject subject = schoolSubjectRepository.findById(journal.getSubjectId()).get();
-            // создаём объект и заполняем
-            RunJournal runJournal = new RunJournal();
-            runJournalRepository.save(runJournal);
-            runJournal.setEstimation(journal.getEstimation());
-            runJournal.setStudent(student);
-            runJournal.setSubject(subject);
-            runJournal.setSchoolClass(class1);
-            runJournal.setOffset(offset);
-            runJournalRepository.save(runJournal);
-        }
-    }
-
-    @Transactional
-    public void setEstimationToStudents(List<StudentTime> students, int classId, int offsetId){
         // Дистанция забега
         String distance = offsetRepository.findById(offsetId).get().getDistance();
         long milliseconds;
@@ -72,11 +114,49 @@ public class RunJournalService {
         Duration five;
         Duration four;
         Duration three;
-        RunJournal runJournal;
         for (StudentTime student : students){
-            runJournal = runJournalRepository.findByStudent_StudentIdAndSchoolClass_ClassIdAndOffset_OffsetId(student.getStudentId(), classId, offsetId);
+            RunJournal runJournal = new RunJournal();
 
-            milliseconds = Long.parseLong(student.getTime());
+            Optional<Student> student2 = studentRepository.findById(student.getStudentId());
+            student2.ifPresentOrElse(
+                    stud -> {
+                        runJournal.setStudent(stud);
+                        System.out.println("Student set: " + stud.getFullName());
+                    },
+                    () -> System.out.println("Student not found with id: " + student.getStudentId())
+            );
+            class1.ifPresentOrElse(
+                    clazz -> {
+                        runJournal.setSchoolClass(clazz);
+                        System.out.println("Class set: " + clazz.getClassName());
+                    },
+                    () -> System.out.println("Class not found with id: " + classId)
+            );
+
+            offset.ifPresentOrElse(
+                    off -> {
+                        runJournal.setOffset(off);
+                        System.out.println("Offset set: " + off.getOffsetName());
+                    },
+                    () -> System.out.println("Offset not found with id: " + offsetId)
+            );
+
+            subject.ifPresentOrElse(
+                    sub -> {
+                        runJournal.setSubject(sub);
+                        System.out.println("Subject set: " + sub.getSubjectName());
+                    },
+                    () -> System.out.println("Subject not found with id: " + subjectId)
+            );
+
+            if (student.getTime() != null){
+                milliseconds = Long.parseLong(student.getTime());
+            } else{
+                    runJournal.setEstimation(null);
+                runJournalRepository.save(runJournal);
+                continue;
+            }
+
             duration = Duration.ofMillis(milliseconds);
             minutes = duration.toMinutes();
             seconds = duration.getSeconds() % 60; // остаток секунд

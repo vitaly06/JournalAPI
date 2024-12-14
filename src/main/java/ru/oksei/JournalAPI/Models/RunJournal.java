@@ -1,5 +1,6 @@
 package ru.oksei.JournalAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,12 +17,15 @@ public class RunJournal {
     private Student student;
     @ManyToOne
     @JoinColumn(name = "subjectid")
+    @JsonIgnore
     private SchoolSubject subject;
     @ManyToOne
     @JoinColumn(name = "offsetid")
+    @JsonIgnore
     private Offset offset;
     @ManyToOne
     @JoinColumn(name = "classid")
+    @JsonIgnore
     private Class schoolClass;
 
     public RunJournal(String estimation) {
