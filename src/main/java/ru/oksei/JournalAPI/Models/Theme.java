@@ -22,6 +22,9 @@ public class Theme {
     @OneToMany(mappedBy = "theme")
     @JsonIgnore
     private List<ActivityJournal> activityJournals;
+    @OneToOne(mappedBy = "theme")
+    @JsonIgnore
+    private Theory theory;
 
     public Theme() {}
 
@@ -59,5 +62,13 @@ public class Theme {
 
     public void setActivityJournals(List<ActivityJournal> activityJournals) {
         this.activityJournals = activityJournals;
+    }
+
+    public Theory getTheory() {
+        return theory;
+    }
+
+    public void setTheory(Theory theory) {
+        this.theory = theory;
     }
 }

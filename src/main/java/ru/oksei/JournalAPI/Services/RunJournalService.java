@@ -148,7 +148,7 @@ public class RunJournalService {
                     },
                     () -> System.out.println("Subject not found with id: " + subjectId)
             );
-
+            System.out.println(student.getTime());
             if (student.getTime() != null){
                 milliseconds = Long.parseLong(student.getTime());
             } else{
@@ -193,16 +193,27 @@ public class RunJournalService {
 
             if (five.compareTo(resTime) >= 0) {
                 System.out.println("5");
-                resString = "5(" + resTime + ")";
+                resString = "5(" + formatDuration(resTime) + ")";
             } else if (four.compareTo(resTime) >= 0) {
                 System.out.println("4");
-                resString = "4(" + resTime + ")";
+                resString = "4(" + formatDuration(resTime) + ")";
             } else if (three.compareTo(resTime) >= 0) {
                 System.out.println("3");
-                resString = "3(" + resTime + ")";
+                resString = "3(" + formatDuration(resTime) + ")";
+            } else{
+                resString = "2(" + formatDuration(resTime) + ")";
             }
             runJournal.setEstimation(resString);
             runJournalRepository.save(runJournal);
         }
+    }
+
+    // Преобразование Duration в нужный формат
+    public static String formatDuration(Duration duration) {
+        long minutes = duration.toMinutes();
+        long seconds = duration.getSeconds() % 60;
+        long milliseconds = duration.toMillis() % 1000;
+        // Форматирование строки
+        return String.format("%d:%02d:%03d", minutes, seconds, milliseconds);
     }
 }

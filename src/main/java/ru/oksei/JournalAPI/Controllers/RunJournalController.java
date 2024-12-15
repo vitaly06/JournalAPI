@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.oksei.JournalAPI.Models.RunJournal;
 import ru.oksei.JournalAPI.Models.StudentTime;
-import ru.oksei.JournalAPI.Requests.RunJournalRequest;
 import ru.oksei.JournalAPI.Services.RunJournalService;
 
 import java.util.List;
