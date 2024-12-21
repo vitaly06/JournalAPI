@@ -1,14 +1,11 @@
 package ru.oksei.JournalAPI.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.oksei.JournalAPI.Models.*;
 import ru.oksei.JournalAPI.Models.Class;
 import ru.oksei.JournalAPI.Repositories.*;
-import ru.oksei.JournalAPI.Requests.RunJournalRequest;
-
 
 import java.time.Duration;
 import java.util.List;
@@ -110,7 +107,7 @@ public class RunJournalService {
         long seconds;
         long millis;
         Duration duration;
-        String resString = "";
+        String estimation = "";
         Duration five;
         Duration four;
         Duration three;
@@ -193,17 +190,18 @@ public class RunJournalService {
 
             if (five.compareTo(resTime) >= 0) {
                 System.out.println("5");
-                resString = "5(" + formatDuration(resTime) + ")";
+                estimation = "5";
             } else if (four.compareTo(resTime) >= 0) {
                 System.out.println("4");
-                resString = "4(" + formatDuration(resTime) + ")";
+                estimation = "4";
             } else if (three.compareTo(resTime) >= 0) {
                 System.out.println("3");
-                resString = "3(" + formatDuration(resTime) + ")";
+                estimation = "3";
             } else{
-                resString = "2(" + formatDuration(resTime) + ")";
+                estimation = "2";
             }
-            runJournal.setEstimation(resString);
+            runJournal.setEstimation(estimation);
+            runJournal.setTime(formatDuration(resTime));
             runJournalRepository.save(runJournal);
         }
     }

@@ -12,6 +12,8 @@ public class RunJournal {
     private int recordId;
     @Column(name = "estimation")
     private String estimation;
+    @Column(name = "time")
+    private String time;
     @ManyToOne
     @JoinColumn(name = "studentid")
     private Student student;
@@ -28,8 +30,9 @@ public class RunJournal {
     @JsonIgnore
     private Class schoolClass;
 
-    public RunJournal(String estimation) {
+    public RunJournal(String estimation, String time) {
         this.estimation = estimation;
+        this.time = time;
     }
 
     public RunJournal() {}
@@ -80,5 +83,13 @@ public class RunJournal {
 
     public void setSchoolClass(Class schoolClass) {
         this.schoolClass = schoolClass;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

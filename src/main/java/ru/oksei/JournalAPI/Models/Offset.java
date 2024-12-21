@@ -14,7 +14,6 @@ public class Offset {
     private int offsetId;
     @Column(name = "offsetname")
     private String offsetName;
-
     @Column(name = "distance")
     private String distance;
     @ManyToOne
